@@ -1,4 +1,4 @@
-/* \author Aaron Brown */
+/* \author Aaron Brown, Benjamin Söllner */
 // Quiz on implementing simple RANSAC line fitting
 
 #include "../../render/render.h"
@@ -21,6 +21,7 @@ pcl::visualization::PCLVisualizer::Ptr initScene(Box window, int zoom)
   	viewer->addCube(window.x_min, window.x_max, window.y_min, window.y_max, 0, 0, 1, 1, 1, "window");
   	return viewer;
 }
+
 
 pcl::PointCloud<pcl::PointXYZ>::Ptr CreateData(std::vector<std::vector<float>> points)
 {
@@ -75,16 +76,64 @@ void render2DTree(Node* node, pcl::visualization::PCLVisualizer::Ptr& viewer, Bo
 
 }
 
+
+void euclideanClusterProximity(
+		const std::vector<std::vector<float>>& points, 
+		int pointIndex, 
+		std::vector<int>& cluster,
+		std::vector<bool>& wasPointProcessed, 
+		KdTree* tree, 
+		float distanceTol
+	)
+{
+	// mark point as processed
+	wasPointProcessed[pointIndex] = true;
+	// add point to cluster
+	cluster.push_back(pointIndex);
+	// nearby points = tree(point);
+	std::vector<int> nearbyIndices = tree->search(points[pointIndex], distanceTol);
+	// iterate through each nearby point
+	for (int nearbyIndex: nearbyIndices) 
+	{
+		// if point has not been processed
+		if (!wasPointProcessed[nearbyIndex])
+		{
+			// Proximity(cluster)
+			euclideanClusterProximity(points, nearbyIndex, cluster, wasPointProcessed, tree, distanceTol);
+		}
+	}
+}
+
 std::vector<std::vector<int>> euclideanCluster(const std::vector<std::vector<float>>& points, KdTree* tree, float distanceTol)
 {
 
-	// TODO: Fill out this function to return list of indices for each cluster
-
+	// list of clusters
 	std::vector<std::vector<int>> clusters;
- 
+	// Iterate through each point
+	std::vector<bool> wasPointProcessed(points.size(), false);
+	int pointIndex = 0;
+	while (pointIndex < points.size())
+	{
+		// if point has not been processed
+		if (wasPointProcessed[pointIndex])
+		{
+			pointIndex++;
+			continue;
+		}
+		else
+		{
+			// create cluster
+			std::vector<int> cluster;
+			// Proximity(point, cluster)
+			euclideanClusterProximity(points, pointIndex, cluster, wasPointProcessed, tree, distanceTol);
+			// add cluster to clusters
+			clusters.push_back(cluster);
+		}
+	}
 	return clusters;
 
 }
+
 
 int main ()
 {
