@@ -45,15 +45,15 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr& viewer, ProcessPointCloud
     
     // voxel grid filtering, box filtering and extraction
     pcl::PointCloud<pcl::PointXYZI>::Ptr filterCloud 
-        = pointProcessorI->FilterCloud(inputCloud, 0.2, Eigen::Vector4f(-20, -6, -5, 1), Eigen::Vector4f(80, 6, 5, 1));
+        = pointProcessorI->FilterCloud(inputCloud, 0.10, Eigen::Vector4f(-20, -6, -5, 1), Eigen::Vector4f(80, 6, 5, 1));
     
     // segment ground and obstacles
     std::pair<pcl::PointCloud<pcl::PointXYZI>::Ptr, pcl::PointCloud<pcl::PointXYZI>::Ptr> segmentCloud 
-        = pointProcessorI->SegmentPlane(filterCloud, 100, 0.5);
+        = pointProcessorI->SegmentPlane(filterCloud, 150, 0.2);
     renderPointCloud(viewer, segmentCloud.second, "planeCloud", Color(1,1,1));
 
     // cluster obstacles
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = pointProcessorI->Clustering(segmentCloud.first, 0.2*2, 50, 1000);
+    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> cloudClusters = pointProcessorI->Clustering(segmentCloud.first, 0.7);
     int clusterId = 0;
     std::vector<Color> colors = {Color(0,0,1), Color(0,1,0), Color(0,1,1)};
     for (pcl::PointCloud<pcl::PointXYZI>::Ptr cluster: cloudClusters)
@@ -89,7 +89,7 @@ void simpleHighway(pcl::visualization::PCLVisualizer::Ptr& viewer)
     renderPointCloud(viewer, segmentCloud.second, "planeCloud", Color(1,1,1));
 
     // cluster cloud
-    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> cloudClusters = pointProcessor.Clustering(segmentCloud.first, 1.0, 3, 30);
+    std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> cloudClusters = pointProcessor.Clustering(segmentCloud.first, 1.0);
     int clusterId = 0;
     std::vector<Color> colors = {Color(0,0,1), Color(0,1,0), Color(0,1,1)};
     for (pcl::PointCloud<pcl::PointXYZ>::Ptr cluster : cloudClusters)

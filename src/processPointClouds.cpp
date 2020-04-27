@@ -232,7 +232,6 @@ std::vector<pcl::PointIndices> ProcessPointClouds<PointT>::EuclideanCluster(
         float distanceTol
     )
 {
-
 	// list of clusters
 	std::vector<pcl::PointIndices> clusters;
 	// Iterate through each point
@@ -264,9 +263,7 @@ std::vector<pcl::PointIndices> ProcessPointClouds<PointT>::EuclideanCluster(
 template<typename PointT>
 std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::Clustering(
         typename pcl::PointCloud<PointT>::Ptr cloud,
-        float clusterTolerance,
-        int minSize,
-        int maxSize
+        float clusterTolerance
     )
 {
     std::vector<typename pcl::PointCloud<PointT>::Ptr> clusters;
@@ -278,8 +275,8 @@ std::vector<typename pcl::PointCloud<PointT>::Ptr> ProcessPointClouds<PointT>::C
     // std::vector<pcl::PointIndices> clustersIndices;
     // pcl::EuclideanClusterExtraction<PointT> ec;
     // ec.setClusterTolerance(clusterTolerance);
-    // ec.setMinClusterSize(minSize);
-    // ec.setMaxClusterSize(maxSize);
+    // ec.setMinClusterSize(50);
+    // ec.setMaxClusterSize(1000);
     // ec.setSearchMethod(tree);
     // ec.setInputCloud(cloud);
     // ec.extract(clustersIndices);
