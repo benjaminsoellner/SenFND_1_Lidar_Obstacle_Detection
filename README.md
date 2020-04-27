@@ -2,7 +2,7 @@
 
 ## Benjamin Söllner, 28 Apr 2020
 
-This project is forked from the [Udacity Sensor Fusion Nanodegree](https://www.udacity.com/course/sensor-fusion-engineer-nanodegree--nd313) online class content and subsequently completed to meet the courses project submission standards. The remaining section of this `README` talks about the general course content and how to build this project. Go to [udacity/SFND_Lidar_Obstacle_Detection](udacity/SFND_Lidar_Obstacle_Detection) if you want to retrieve the original (unfinished) repo. Don't you cheat by copying my repo in order to use it as your Nanodegree submission! :-o
+This project is forked from the [Udacity Sensor Fusion Nanodegree](https://www.udacity.com/course/sensor-fusion-engineer-nanodegree--nd313) online class content and subsequently completed to meet the courses project submission standards. The remaining section of this `README` talks about the general course content and how to build this project. Go to [udacity/SFND_Lidar_Obstacle_Detection](https://github.com/udacity/SFND_Lidar_Obstacle_Detection) if you want to retrieve the original (unfinished) repo. Don't you cheat by copying my repo in order to use it as your Nanodegree submission! :-o
 
 <img src="media/ObstacleDetectionFPS.gif" width="700" height="400" />
 
