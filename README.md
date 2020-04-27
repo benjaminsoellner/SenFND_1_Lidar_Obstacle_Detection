@@ -1,4 +1,4 @@
-# Sensor Fusion Self-Driving Car Course
+# Sensor Fusion Engineer Project 1 - Lidar Obstacle Detection
 
 ## Benjamin Söllner, 28 Apr 2020
 
