@@ -55,7 +55,7 @@ struct KdTree
 		uint dimension = depth % 2;
 		std::vector<int> found;
 		std::vector<float> point = node->point;
-		bool boxLeft = target[dimension]-distanceTol*2 <= point[dimension];
+		bool boxLeft = target[dimension]-distanceTol*2 < point[dimension];
 		bool boxRight = target[dimension]+distanceTol*2 >= point[dimension];
 		bool inBox = boxLeft && boxRight;
 		if (inBox)
