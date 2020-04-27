@@ -72,7 +72,7 @@ struct KdTree
 
 	std::vector<int> searchNode(Node<PointT>* node, uint depth, PointT target, float distanceTol)
 	{
-		uint dimension = depth % 2;
+		uint dimension = depth % 3;
 		std::vector<int> found;
 		PointT point = node->point;
 		bool boxLeft = getDimension(target, dimension)-distanceTol*2 <= getDimension(point, dimension);
